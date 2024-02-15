@@ -10,7 +10,7 @@ class Category:
 
 class Product:
 
-    def __init__(self, name, description, price: float, quantity_in_stock: int):
+    def __init__(self, name: str, description: str, price: float, quantity_in_stock: int):
         self.name = name
         self.description = description
         self.price = price
