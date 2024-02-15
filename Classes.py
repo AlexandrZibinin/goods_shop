@@ -1,5 +1,7 @@
 class Category:
-
+    name: str
+    description: str
+    goods: str
     def __init__(self, name, description, goods):
         self.name = name
         self.description = description
