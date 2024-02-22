@@ -11,6 +11,7 @@ product_data = {
 # пытаемся добавить продукт в категорию
 my_new = Product.create_product(product_data)
 
+my_cat.append_goods(my_new)
 
-# my_cat.get_goods()
+my_cat.get_goods()
 
