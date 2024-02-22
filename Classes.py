@@ -8,42 +8,59 @@ class Category:
         self.description = description
         self.__goods = goods
 
+    @property
+    def goods(self):
+        return self.__goods
+
+    @goods.getter
+    def get_goods(self):
+        """вывод информации о товаре"""
+        for value in self.__goods:
+            print(f"{value[0]}, {value[2]} руб. Остаток: {value[3]} шт.")
+
+    @goods.setter
     def append_goods(self, new_goods):
         """добавление товара из экземпляра Product в список товаров Category"""
-        self.goods.append(new_goods.name)
-
-    @property
-    def displaying_goods(self, new_goods):
-        """вывод информации о товаре"""
-        return f'{self.__goods}, {new_goods.price} руб. Остаток: {new_goods.quantity_in_stock} шт.'
+        self.__goods.append(new_goods)
 
 class Product:
 
-    def __init__(self, name: str, description: str, price: float, quantity_in_stock: int):
+    def __init__(self, name: str, description: str, price: float, quantity: int):
         self.name = name
         self.description = description
         self.price = price
-        self.quantity_in_stock = quantity_in_stock
+        self.quantity = quantity
         self.total_categories = 0
         self.total_unique_products = 0
 
     @classmethod
-    def new_product(cls, new_product):
-        """Для класса Product добавить метод, который создает товар и возвращает объект,
-        который можно добавлять в список товаров."""
-        name, description, price, quantity_in_stock = new_product.split(' ')
-        return cls(name, description, price, quantity_in_stock)
+    def create_product(cls, product_data: dict):
+        name = product_data['name']
+        description = product_data['description']
+        price = product_data['price']
+        quantity = product_data['quantity']
+        return [name, description, price, quantity]
 
 
-    @property
-    def get_price(self):
-        return self.price
-
-    @get_price.setter
-    def get_price(self, new_price):
-        self.price = new_price
-
-    def get_info_price(self):
-        """если цена ниже или равна 0 выводит сообщение о некорректной цене"""
-        if self.get_price() <= 0:
-            print('цена введена некорректная')
+    # def new_product(cls, new_product):
+    #     """Для класса Product добавить метод, который создает товар и возвращает объект,
+    #     который можно добавлять в список товаров."""
+    #     name, description, price, quantity = new_product.split(' ')
+    #     return cls(name, description, price, quantity)
+    #
+    #
+    #
+    # def get_price(self):
+    #     return self.price
+    #
+    #
+    # def get_price(self, new_price):
+    #     self.price = new_price
+    #
+    # def get_info_price(self):
+    #     """если цена ниже или равна 0 выводит сообщение о некорректной цене"""
+    #     if self.get_price() <= 0:
+    #         print('цена введена некорректная')
+    #
+    # def create_product(self):
+    #     return [self.name, self.__price, self.quantity]
