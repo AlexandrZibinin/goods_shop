@@ -1,25 +1,30 @@
 class Category:
     name: str
     description: str
-    goods: list
+
 
     def __init__(self, name, description, goods):
         self.name = name
         self.description = description
         self.__goods = goods
 
+    def __str__(self):
+        for value in self.__goods:
+            print(f"{value.name}, {value.price} руб. Остаток: {value.description} шт.")
+        return ''
+
     @property
     def goods(self):
         return self.__goods
 
-    @goods.getter
-    def get_goods(self):
-        """вывод информации о товаре"""
-        for value in self.__goods:
-            print(f"{value[0]}, {value[2]} руб. Остаток: {value[3]} шт.")
+    # @goods.getter
+    # def get_goods(self):
+    #     """вывод информации о товаре"""
+    #     for value in self.__goods:
+    #         print(f"{value[0]}, {value[2]} руб. Остаток: {value[3]} шт.")
 
     @goods.setter
-    def append_goods(self, new_goods):
+    def goods(self, new_goods):
         """добавление товара из экземпляра Product в список товаров Category"""
         self.__goods.append(new_goods)
 
@@ -39,7 +44,7 @@ class Product:
         description = product_data['description']
         price = product_data['price']
         quantity = product_data['quantity']
-        return [name, description, price, quantity]
+        return cls(name, description, price, quantity)
 
 
     # def new_product(cls, new_product):

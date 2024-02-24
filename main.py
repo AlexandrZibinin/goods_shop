@@ -1,6 +1,6 @@
 from Classes import Category, Product
 
-my_cat = Category('fruit', 'round', [['груша', 'красная', 110.0, 5]])
+my_cat = Category('fruit', 'round', [Product('груша', 'красная', 110.0, 5)])
 # вот продукт
 product_data = {
         "name": "Samsung Galaxy C23 Ultra",
@@ -11,7 +11,10 @@ product_data = {
 # пытаемся добавить продукт в категорию
 my_new = Product.create_product(product_data)
 
-my_cat.append_goods(my_new)
+my_cat.goods = my_new
 
-my_cat.get_goods()
+print(my_cat)
+
+
+# my_cat.get_goods()
 
