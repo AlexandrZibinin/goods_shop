@@ -16,6 +16,14 @@ class Category:
             goods.append(st)
         return '\n'.join(goods)
 
+    def __str__(self):
+        return f'{self.name}, количество продуктов: {self.__len__()} шт.'
+
+    def __len__(self):
+        """подсчет количества продуктов в категории"""
+        total_goods = len(self.__goods)
+        return total_goods
+
     @goods.setter
     def goods(self, new_goods):
         """добавление товара из экземпляра Product в список товаров Category"""
@@ -32,6 +40,14 @@ class Product:
         self.total_categories = 0
         self.total_unique_products = 0
 
+    def __str__(self):
+        return f'{self.name}, {self.price} руб. Остаток: {self.__len__()} шт.'
+
+    def __len__(self):
+        """возвращает количество продукта на складе"""
+        return self.quantity
+
+
     @property
     def price(self):
         return self.__price
@@ -47,3 +63,8 @@ class Product:
     def create_product(cls, product_data: dict):
         """создание экземпляра класса с помощью распаковки словаря"""
         return cls(**product_data)
+
+    def __add__(self, other):
+        """возможность складывать объекты между собой таким образом, чтобы результат выполнения сложения двух продуктов
+         был сложением сумм, умноженных на количество на складе."""
+        return self.__price * self.quantity + other.price * other.quantity
