@@ -7,7 +7,6 @@ class Category:
         self.description = description
         self.__goods = goods
 
-
     @property
     def goods(self):
         """геттер списка товаров раздела категории"""
@@ -15,8 +14,7 @@ class Category:
         for value in self.__goods:
             st = f"{value.name}, {value.price} руб. Остаток: {value.quantity} шт."
             goods.append(st)
-        return ('\n'.join(goods))
-
+        return '\n'.join(goods)
 
     @goods.setter
     def goods(self, new_goods):
@@ -34,11 +32,9 @@ class Product:
         self.total_categories = 0
         self.total_unique_products = 0
 
-
     @property
     def price(self):
         return self.__price
-
 
     @price.setter
     def price(self, new_price) -> float:
