@@ -14,7 +14,7 @@ class Category:
         for value in self.__goods:
             st = f"{value.name}, {value.price} руб. Остаток: {value.quantity} шт."
             goods.append(st)
-        return '\n'.join(goods)
+        return goods
 
     @goods.setter
     def goods(self, new_goods):
@@ -40,7 +40,8 @@ class Product:
     def price(self, new_price) -> float:
         """сеттер стоимости товара с проверкой"""
         if new_price <= 0:
-            return 'Цена введена некорректная'
+            print('Цена введена некорректная')
+            return
         self.__price = new_price
 
     @classmethod
