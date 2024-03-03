@@ -27,7 +27,10 @@ class Category:
     @goods.setter
     def goods(self, new_goods):
         """добавление товара из экземпляра Product в список товаров Category"""
-        self.__goods.append(new_goods)
+        if issubclass(new_goods.__class__, Product) and isinstance(type(new_goods), Product):
+            self.__goods.append(new_goods)
+        else:
+            return f'Товар не является экземпляром класса'
 
 
 class Product:
@@ -68,4 +71,22 @@ class Product:
     def __add__(self, other):
         """возможность складывать объекты между собой таким образом, чтобы результат выполнения сложения двух продуктов
          был сложением сумм, умноженных на количество на складе."""
-        return self.__price * self.quantity + other.price * other.quantity
+        if isinstance(other, type(self)):
+            return self.__price * self.quantity + other.price * other.quantity
+        else:
+            raise ValueError('Ошибка типа, продукты должны быть из одного класса')
+
+class Smartphone(Product):
+    def __init__(self, name, description, price, quantity, perfomance, model, value_memory, color):
+        super().__init__(name, description, price, quantity)
+        self.perfomance = perfomance
+        self.model = model
+        self.value_memory = value_memory
+        self.color = color
+
+class LawnGrass(Product):
+    def __init__(self, name, description, price, quantity, manufacturer, germination_period, color):
+        super().__init__(name, description, price, quantity)
+        self.manufacturer = manufacturer
+        self.germination_period = germination_period
+        self.color = color
