@@ -1,3 +1,5 @@
+from abc import ABC, abstractmethod
+
 class Category:
     name: str
     description: str
@@ -33,7 +35,32 @@ class Category:
             return f'Товар не является экземпляром класса'
 
 
-class Product:
+class Mixinclass:
+
+    def __init__(self, *args, **kwargs):
+        print(repr(self))
+
+    def __repr__(self):
+        '''Method repr для вывода сообщения в виде клаcса и его атрибутов'''
+        object_attributes = ''
+        for k, v in self.__dict__.items():
+            object_attributes += f'{k}: {v},'
+        return f"Создан объект со свойствами: {object_attributes.strip(',')})"
+
+
+
+class ABCproduct:
+
+    @abstractmethod
+    def __str__(self):
+        pass
+
+    @abstractmethod
+    def create_product(self):
+        pass
+
+
+class Product(ABCproduct, Mixinclass):
 
     def __init__(self, name: str, description: str, price: float, quantity: int):
         self.name = name
@@ -76,7 +103,7 @@ class Product:
         else:
             raise ValueError('Ошибка типа, продукты должны быть из одного класса')
 
-class Smartphone(Product):
+class Smartphone(Product, Mixinclass):
     def __init__(self, name, description, price, quantity, perfomance, model, value_memory, color):
         super().__init__(name, description, price, quantity)
         self.perfomance = perfomance
@@ -84,9 +111,10 @@ class Smartphone(Product):
         self.value_memory = value_memory
         self.color = color
 
-class LawnGrass(Product):
+class LawnGrass(Product, Mixinclass):
     def __init__(self, name, description, price, quantity, manufacturer, germination_period, color):
         super().__init__(name, description, price, quantity)
         self.manufacturer = manufacturer
         self.germination_period = germination_period
         self.color = color
+
