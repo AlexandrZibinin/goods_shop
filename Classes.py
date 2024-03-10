@@ -4,6 +4,7 @@ class Category:
     name: str
     description: str
 
+
     def __init__(self, name, description, goods):
         self.name = name
         self.description = description
@@ -30,9 +31,24 @@ class Category:
     def goods(self, new_goods):
         """добавление товара из экземпляра Product в список товаров Category"""
         if issubclass(new_goods.__class__, Product) and isinstance(type(new_goods), Product):
-            self.__goods.append(new_goods)
+            if new_goods.quantity == 0:
+                raise ValueError('Количество товаров = 0')
+            else:
+                self.__goods.append(new_goods)
         else:
             return f'Товар не является экземпляром класса'
+
+    def average_price(self):
+        """Подсчет средней цены продуктов"""
+        total_price = []
+        average_price = []
+        try:
+            for i in self.__goods:
+                total_price.append(i.price * i.quantity)
+        except ZeroDivisionError:
+            average_price = 0
+        average_price = round(sum(total_price) / self.__len__(), 2)
+        return average_price
 
 
 class Mixinclass:
@@ -46,7 +62,6 @@ class Mixinclass:
         for k, v in self.__dict__.items():
             object_attributes += f'{k}: {v},'
         return f"Создан объект со свойствами: {object_attributes.strip(',')})"
-
 
 
 class ABCproduct:
