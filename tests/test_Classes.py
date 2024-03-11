@@ -1,5 +1,5 @@
 import pytest
-from Classes import Category, Product
+from classes import Category, Product
 
 @pytest.fixture()
 def category_object():
