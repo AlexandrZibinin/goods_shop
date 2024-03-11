@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 
+
 class Category:
     name: str
     description: str
-
 
     def __init__(self, name, description, goods):
         self.name = name
@@ -30,9 +30,9 @@ class Category:
     @goods.setter
     def goods(self, new_goods):
         """добавление товара из экземпляра Product в список товаров Category"""
-        if issubclass(new_goods.__class__, Product) and isinstance(type(new_goods), Product):
+        if issubclass(new_goods.__class__, Product) and isinstance(new_goods, Product):
             if new_goods.quantity == 0:
-                raise ValueError('Количество товаров = 0')
+                raise ValueError('Нельзя добавить товар с нулевым количеством!')
             else:
                 self.__goods.append(new_goods)
         else:
@@ -92,7 +92,6 @@ class Product(ABCproduct, Mixinclass):
         """возвращает количество продукта на складе"""
         return self.quantity
 
-
     @property
     def price(self):
         return self.__price
@@ -118,6 +117,7 @@ class Product(ABCproduct, Mixinclass):
         else:
             raise ValueError('Ошибка типа, продукты должны быть из одного класса')
 
+
 class Smartphone(Product, Mixinclass):
     def __init__(self, name, description, price, quantity, perfomance, model, value_memory, color):
         super().__init__(name, description, price, quantity)
@@ -126,10 +126,10 @@ class Smartphone(Product, Mixinclass):
         self.value_memory = value_memory
         self.color = color
 
+
 class LawnGrass(Product, Mixinclass):
     def __init__(self, name, description, price, quantity, manufacturer, germination_period, color):
         super().__init__(name, description, price, quantity)
         self.manufacturer = manufacturer
         self.germination_period = germination_period
         self.color = color
-
